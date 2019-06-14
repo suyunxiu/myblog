@@ -93,13 +93,13 @@ class PostController extends Controller
      * $post->delete();
      */
 
-        $models = Post::find()->where(['AND',['status' => 2],['author_id' => 1],['like','title','Yii']])->orderBy('id')->all();
-//        var_dump($post);
-        foreach ($models as $item){
-            echo $item->id . ' ';
-            echo $item->title . '<br>';
-        }
-        exit(0);
+//        $models = Post::find()->where(['AND',['status' => 2],['author_id' => 1],['like','title','Yii']])->orderBy('id')->all();
+////        var_dump($post);
+//        foreach ($models as $item){
+//            echo $item->id . ' ';
+//            echo $item->title . '<br>';
+//        }
+//        exit(0);
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);

@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /* @var $model common\models\Comment */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Comments', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => '评论管理', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
@@ -16,8 +16,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
+        <?= Html::a('修改', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('删除', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => 'Are you sure you want to delete this item?',
@@ -31,13 +31,29 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'id',
             'content:ntext',
-            'status',
-            'create_time:datetime',
-            'userid',
+//            'status',
+            [
+                'attribute' => 'status',
+                'value' => $model->status0->name
+            ],
+//            'create_time:datetime',
+            [
+                'attribute' => 'create_time',
+                'format' => ['date', 'php:Y-m-d H:i:s']
+            ],
+//            'userid',
+            [
+                'attribute' => 'userid',
+                'value' => $model->user->username
+            ],
             'email:email',
             'url:url',
-            'post_id',
-            'remind',
+//            'post_id',
+            [
+                'attribute' => 'post_id',
+                'value' => $model->post->title
+            ],
+//            'remind',
         ],
     ]) ?>
 

@@ -38,6 +38,7 @@ AppAsset::register($this);
     $menuItems = [
         ['label' => '文章管理', 'url' => ['/post/index']],
         ['label' => '评论管理', 'url' => ['/comment/index']],
+        '<li><span class="badge badge-inverse">'.\common\models\Comment::getNoComment().'</span></li>',
         ['label' => '用户管理', 'url' => ['/user/index']],
         ['label' => '管理员', 'url' => ['/adminuser/index']],
     ];

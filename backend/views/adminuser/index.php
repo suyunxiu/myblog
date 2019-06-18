@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel common\models\AdminuserSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Adminusers';
+$this->title = '用户管理';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="adminuser-index">
@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Adminuser', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('新增', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -24,19 +24,34 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+//            ['class' => 'yii\grid\SerialColumn'],
 
             'id',
             'username',
             'nickname',
-            'password',
+//            'password',
             'email:email',
             //'profile:ntext',
             //'auth_key',
             //'password_hash',
             //'password_reset_token',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'template' => '{view} {update} {delete} {resetpwd} {privilege}',
+                'buttons' => [
+                        'resetpwd' => function($url, $model, $key)
+                        {
+                            $options = [
+                                'title' => Yii::t('yii','重置密码'),
+                                'aria-label' => Yii::t('yii','重置密码'),
+                                'data-pjax' => '0'
+                            ];
+
+                            return Html::a('<span class="glyphicon glyphicon-lock"></span>', $url, $options);
+                        }
+                    ]
+            ],
         ],
     ]); ?>
 

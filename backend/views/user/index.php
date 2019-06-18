@@ -7,16 +7,14 @@ use yii\grid\GridView;
 /* @var $searchModel common\models\UserSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Users';
+$this->title = '用户管理';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="user-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>
-        <?= Html::a('Create User', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
+    <p></p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
@@ -24,19 +22,31 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+//            ['class' => 'yii\grid\SerialColumn'],
 
             'id',
             'username',
-            'auth_key',
-            'password_hash',
-            'password_reset_token',
-            //'email:email',
-            //'status',
-            //'created_at',
+//            'auth_key',
+//            'password_hash',
+//            'password_reset_token',
+            'email:email',
+//            'status',
+            [
+                'attribute' => 'status',
+                'value' => 'statusStr',
+                'filter' => \common\models\User::allStatus()
+            ],
+//            'created_at',
+            [
+                'attribute' => 'created_at',
+                'format' => ['date','php:Y-m-d h:i:s']
+            ],
             //'updated_at',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'template' => '{update}'
+            ],
         ],
     ]); ?>
 

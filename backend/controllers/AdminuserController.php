@@ -3,6 +3,8 @@
 namespace backend\controllers;
 
 use Yii;
+use backend\models\SignupForm;
+use backend\models\ResetPwdForm;
 use common\models\Adminuser;
 use common\models\AdminuserSearch;
 use yii\web\Controller;
@@ -64,10 +66,12 @@ class AdminuserController extends Controller
      */
     public function actionCreate()
     {
-        $model = new Adminuser();
+        $model = new SignupForm();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post())) {
+            if ($usr = $model->signup()) {
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
         }
 
         return $this->render('create', [
@@ -123,5 +127,20 @@ class AdminuserController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    public function actionResetpwd($id)
+    {
+        $model = new ResetPwdForm();
+        if ($model->load(Yii::$app->request->post())) {
+
+            if ($model->resetPassword($id)) {
+                return $this->redirect(['index']);
+            }
+        }
+
+        return $this->render('resetpwd', [
+            'model' => $model
+        ]);
     }
 }
